@@ -6,61 +6,14 @@
  */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ref, deleteObject } from 'firebase/storage';
-import { storage } from '../../_utils/firebase';
+
 
 const DeletionModal = ({ property_id, onClose }) => {
 	const navigate = useNavigate();
 
-	// Function to delete images from Firebase storage
-	const deleteImagesFromStorage = async (imageUrls) => {
-		try {
-			const deletionPromises = imageUrls.map(async (imageUrl) => {
-				try {
-					const imageRef = ref(storage, imageUrl);
-					await deleteObject(imageRef);
-					console.log(`Deleted image: ${imageUrl}`);
-				} catch (error) {
-					console.error(`Error deleting image ${imageUrl}:`, error);
-				}
-			});
-
-			await Promise.all(deletionPromises);
-		} catch (error) {
-			console.error('Error deleting images:', error);
-			throw error;
-		}
-	};
-
 	// Function to handle the deletion of a listing
 	const handleDeleteListing = async () => {
 		try {
-			// First, fetch the property details to get image URLs
-			const detailsResponse = await fetch(
-				`${process.env.REACT_APP_BACKEND_URL}/api/getPropertyDetails?property_id=${property_id}`,
-				{
-					method: 'GET',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				}
-			);
-
-			if (!detailsResponse.ok) {
-				throw new Error('Failed to fetch property details');
-			}
-
-			const propertyData = await detailsResponse.json();
-			
-			// Collect all image URLs
-			const allImageUrls = [
-				...(propertyData.primaryImage ? [propertyData.primaryImage] : []),
-				...(propertyData.otherImages || [])
-			];
-
-			// Delete images from Firebase storage
-			await deleteImagesFromStorage(allImageUrls);
-
 			// Send a POST request to update the status of the property to "0" (deleted)
 			const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/updatePropStatus`, {
 				method: 'POST',
@@ -68,23 +21,20 @@ const DeletionModal = ({ property_id, onClose }) => {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					property_id: property_id,
+					property_id: property_id, // Pass the dynamic property ID
 					status: '0',
 				}),
 			});
 
-			// If the request is successful, navigate to the confirmation page
+			// If the request is successful, log a success message and navigate to the confirmation page
 			if (response.ok) {
 				console.log('Property has been deleted');
 				navigate('/DeletionConfirmation');
 			} else {
 				console.log('Property could not be deleted');
-				throw new Error('Failed to update property status');
 			}
 		} catch (error) {
 			console.error('Error deleting property:', error);
-			// Optionally, show an error message to the user
-			alert('Failed to delete listing. Please try again.');
 		}
 	};
 
