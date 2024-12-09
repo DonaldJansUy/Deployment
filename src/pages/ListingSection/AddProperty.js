@@ -65,7 +65,7 @@ const AddProperty = () => {
 	useEffect(() => {
 		// Property ID generation
 		const generatePropertyId = () => {
-			const randomNum = Math.floor(Math.random() * 100000);
+			const randomNum = Math.floor(Math.random() * 1000000000);
 			return `${randomNum}`;
 		};
 
