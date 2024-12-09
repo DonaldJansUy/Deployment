@@ -15,7 +15,7 @@ const DeletionModal = ({ property_id, onClose }) => {
 	const handleDeleteListing = async () => {
 		try {
 			// Send a POST request to update the status of the property to "0" (deleted)
-			const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/updatePropStatus`, {
+			const response = await fetch('/api/updatePropStatus', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
