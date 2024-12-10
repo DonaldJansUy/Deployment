@@ -53,7 +53,7 @@ export default function SearchResult({propertyName, addressLine1, city, province
             </div>
 
             <div className="w-auto h-52 flex justify-center items-center mx-4 p-1">
-                <img className="w-auto h-full rounded-lg border-2 border-gray-200" src={propertyImage} alt="Garden" />
+                <img className="w-full h-full rounded-lg border-2 border-gray-200" src={propertyImage} alt={propertyImage} />
             </div>
 
             <div className="px-4 py-2 flex gap-2 items-center justify-center">

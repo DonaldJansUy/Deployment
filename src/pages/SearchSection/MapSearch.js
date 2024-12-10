@@ -337,7 +337,7 @@ export default function MapSearch() {
           ) : error ? ( // Display error message if fetch fails
             <div>{error}</div>
           ) : selectedPlace ? ( // Display selected place if available
-            <div className="p-2 bg-white rounded-lg shadow-md">
+            <div className="rounded-lg shadow-md">
               <SearchResult
                 propertyName={selectedPlace.property_name} // Pass property name
                 addressLine1={selectedPlace.address_line1} // Pass address line 1
@@ -359,7 +359,7 @@ export default function MapSearch() {
             </div>
           ) : (
             searchResults.map((result, index) => ( // Map through search results to display
-              <div key={index} className="p-2 bg-white rounded-lg shadow-md">
+              <div key={index} className="rounded-lg shadow-md">
                 <SearchResult
                   propertyName={result.property_name} // Pass property name
                   addressLine1={result.address_line1} // Pass address line 1
