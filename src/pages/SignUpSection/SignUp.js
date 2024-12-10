@@ -150,10 +150,11 @@ export default function SignUp() {
 		}
 	
 		// Send the form data to the server to create a new user
-		try {
-			const { email, password } = formData;
-	
-			console.log('Data being sent to the server:', formData);
+		try{
+		        console.log('Attempting to register with:', {
+		            url: `${process.env.REACT_APP_BACKEND_URL}/api/users/register`,
+		            body: formData
+		        });
 	
 			// Ensure the backend URL is defined
 			if (!process.env.REACT_APP_BACKEND_URL) {
