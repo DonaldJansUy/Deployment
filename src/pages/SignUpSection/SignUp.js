@@ -161,7 +161,7 @@ export default function SignUp() {
 			}
 	
 			// This is the POST request to add the user data to the database
-			const response = await fetch(`https://socialgrdn-backend.onrender.com/api/users/register`, {
+			const response = await fetch('https://socialgrdn-backend.onrender.com/api/users/register', {
 				method: 'POST',
 				credentials: 'include',
 				headers: { 
