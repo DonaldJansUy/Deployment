@@ -181,6 +181,9 @@ export default function SignUp() {
 			// If the response is successful, create a new user in Firebase and send a verification email
 			if (response.ok) {
 				try {
+					const { email, password } = formData;
+	
+					console.log('Data being sent to the server:', formData);
 					// Create user in Firebase
 					const userCredential = await createUserWithEmailAndPassword(
 						auth,
