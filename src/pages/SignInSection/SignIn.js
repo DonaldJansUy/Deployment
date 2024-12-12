@@ -145,7 +145,7 @@ export default function SignIn() {
 				</div>
 				{isBlocked && (
 					<p className="mx-4 text-red-500">
-						Your account is currently blocked. Please contact the administrator.
+						Your account is currently blocked. Please contact the administrator at socialgrdn2024@gmail.com.
 					</p>
 				)}
 				<div className="my-3">
